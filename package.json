@@ -1,0 +1,28 @@
+{
+  "name": "placeholder-lite",
+  "version": "0.1.0",
+  "description": "placeholder jquery plugin",
+  "devDependencies": {
+    "grunt":"*",
+    "grunt-contrib-watch": "~0.4.4",
+    "grunt-contrib-uglify": "~0.2.2"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hellocreep/placeholder-lite.git"
+  },
+  "keywords": [
+    "jquery",
+    "plugin",
+    "placeholder"
+  ],
+  "author": "lea",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hellocreep/placeholder-lite/issues"
+  }
+}
