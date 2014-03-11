@@ -16,24 +16,42 @@
 	Placeholder.prototype.init = function() {
 		var $el = this.$el,
 		 	holderText = $el.attr('placeholder'),
-			$placeholder = $('<input type="text">').val(holderText).addClass($el.attr('class')).removeClass('hide');
-
-		$el.hide();
-
+			$placeholder = $('<input type="text" class="placeholder">').val(holderText).addClass($el.attr('class')).removeClass('hide');
+		
+		this.$placeholder = $placeholder;
+		this.holderText = holderText;
+		
 		$placeholder.on('focus', function() {
-			$(this).hide().prev().show().focus();
+			$(this).hide();
+			$el.show().focus();
 		});
 
 		$el.on('blur', function() {
 			var $this = $(this);
 			if(!$this.val().length) {
-				$this.hide().next().show();
+				$el.hide();
+				$placeholder.show();
 			}
 		});
 
-		this.$el.after($placeholder);	
+		this.$el.after($placeholder);
+		
+		this.update();	
 	}
-
+	
+	Placeholder.prototype.update = function() {
+		var $el = this.$el,
+			holderText = this.holderText,
+			$placeholder = this.$placeholder;
+		if($el.val()) {
+			$el.show();
+			$placeholder.hide();
+		} else {
+			$placeholder.val(holderText).show();
+			$el.hide();
+		}
+	}
+	
 	$.fn.placeholder = function(opts) {
 		if(isInputSupported) return;
 
@@ -42,7 +60,11 @@
 				conf = $.extend({}, Placeholder.DEFAULTS, typeof opts === 'object' && opts),
 				data = $this.data('placeholder');	
 
-			if(!data) $this.data('placeholder', (data = new Placeholder($this, conf)));
+			if(!data) {
+				$this.data('placeholder', (data = new Placeholder($this, conf)));
+			} else {
+				data.update();
+			}
 		});
 		return this;
 	}
